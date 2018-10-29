@@ -1,73 +1,11 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
-        <style>
-            #map {
-                height: 400px;
-                width: 75%;
-                float: left;
-            }
-            #panel{
-                height: 400px;
-                width: 25%;
-                float: right;
-                background-color: #EEE;
-            }
-        </style>
-        <title>OpenLayers 4 example</title>
-        <script src="ol4/build/ol-debug.js" type="text/javascript"></script>
-        <script src="ol4/js/url.js" type="text/javascript"></script>
-        <!--agregamos la libreria JQuery -->
-    	<script src="jquery.min.js" type="text/javascript"></script>
-    </head>
-    <body>
-
-        <h1>My Map</h1>
-
-        <!-- DIV que contiene el mapa -->
-        <div id="map"></div>
-
-        <div id="panel">
-            <h3>Capas</h3>
-            <!-- checkboxes para activar/desactivar las capas -->
-            <input type="checkbox" id="check_layer_1"><label for="check_layer_1"> Red Vial</label><br/>
-            <input type="checkbox" id="check_layer_2"><label for="check_layer_2">Vegetacion Cultivos</label><br/>
-            <input type="checkbox" id="check_layer_3"><label for="check_layer_3">Vegetacion Arborea</label><br/>
-            <input type="checkbox" id="check_layer_4"><label for="check_layer_4">Espejos de Agua</label><br/>
-
-
-            <!-- Radio buttons para cambiar las interacciones activas -->
-            <h3>Controles</h3>
-            <!-- evento onchange: ejecuta la funcion seleccionarControl -->
-            <input
-                type="radio"
-                name="controles"
-                id="controles_navegacion"
-                value="navegacion"
-                checked="checked"
-                onchange="seleccionarControl(this)"
-
-                > <label for="controles_navegacion"> Navegacion</label><br/>
-            <input
-                type="radio"
-                name="controles"
-                id="controles_consulta"
-                value="consulta"
-                onchange="seleccionarControl(this)"
-                > <label for="controles_consulta"> Consulta</label><br/>
-
-        </div>
-
-        <!-- SCRIPT que crea el mapa y sus capas -->
-        <script type="text/javascript">
+        
 
             //creo un source de tipo Vector
             var vectorSource = new ol.source.Vector({
                 //formato de los datos a consumir
                 format: new ol.format.GeoJSON(),
                 //url del archivo o script que genera el GeoJSON
-                url:'espejos_de_agua.geojson'
+                url:'../../espejos_de_agua.geojson'
             });
 
             //creo una capa de tipo vector
@@ -105,29 +43,29 @@
 
 
 
-            var red_vial = new ol.layer.Image({
-                title: "Red Vial",
+            var veg_arborea = new ol.layer.Image({
+                title: "Vegetacion Arborea",
                 //capa desactivada por defecto
                 visible: false,
                 source: new ol.source.ImageWMS({
                     url: URL_OGC,
-                    params: {LAYERS: 'red_vial'}
+                    params: {LAYERS: 'veg_arborea'}
                 })
             });
-            var veg_culti = new ol.layer.Image({
+            var veg_arbustiva= new ol.layer.Image({
+                title: "Vegetacion Arbustiva",
+                visible: false,
+                source: new ol.source.ImageWMS({
+                    url: URL_OGC,
+                    params: {LAYERS: 'veg_arbustiva'}
+                })
+            });
+            var veg_cultivos = new ol.layer.Image({
                 title: "Vegetacion Cultivos",
                 visible: false,
                 source: new ol.source.ImageWMS({
                     url: URL_OGC,
                     params: {LAYERS: 'veg_cultivos'}
-                })
-            });
-            var veg_arbo = new ol.layer.Image({
-                title: "Vegetacion Arborea",
-                visible: false,
-                source: new ol.source.ImageWMS({
-                    url: URL_OGC,
-                    params: {LAYERS: 'veg_arborea'}
                 })
             });
             var map = new ol.Map({
@@ -140,11 +78,11 @@
                             params: {LAYERS: 'ne:ne', VERSION: '1.1.1'}
                         })
                     }),
-                    red_vial,
+                    veg_arborea,
                     //Agrego dos capas WMS mas
-                    veg_culti,
-                    veg_arbo,
-                    //agregi ka caoa vectorial
+                    veg_arbustiva,
+                    veg_cultivos,
+                    //agrego la capa vectorial
                     vectorLayer
 
                 ],
@@ -250,14 +188,14 @@ var consultar = function(coordinate){
             checkbox1.addEventListener('change', function () {
                 var checked = this.checked;
                 //seteo la propiedad "visible" de mi capa en función al valor
-                if (checked !== red_vial.getVisible()) {
-                    red_vial.setVisible(checked);
+                if (checked !== veg_arborea.getVisible()) {
+                    veg_arborea.setVisible(checked);
                 }
             });
 
             //agrego un listener al evento change de la
             //propiedad "visible" de la capa
-            red_vial.on('change:visible', function () {
+            veg_arborea.on('change:visible', function () {
                 var visible = this.getVisible();
                 //seteo el valor del checkbox
                 if (visible !== checkbox1.checked) {
@@ -270,11 +208,11 @@ var consultar = function(coordinate){
             checkbox2.addEventListener('change', function () {
                 var checked = this.checked;
                 if (checked !== veg_culti.getVisible()) {
-                    veg_culti.setVisible(checked);
+                    veg_arbustiva.setVisible(checked);
                 }
             });
 
-            veg_culti.on('change:visible', function () {
+            veg_arbustiva.on('change:visible', function () {
                 var visible = this.getVisible();
                 if (visible !== checkbox2.checked) {
                     checkbox2.checked = visible;
@@ -285,11 +223,11 @@ var consultar = function(coordinate){
             checkbox3.addEventListener('change', function () {
                 var checked = this.checked;
                 if (checked !== veg_arbo.getVisible()) {
-                    veg_arbo.setVisible(checked);
+                    veg_cultivos.setVisible(checked);
                 }
             });
 
-            veg_arbo.on('change:visible', function () {
+            veg_cultivos.on('change:visible', function () {
                 var visible = this.getVisible();
                 if (visible !== checkbox3.checked) {
                     checkbox3.checked = visible;
@@ -310,9 +248,3 @@ var consultar = function(coordinate){
                     checkbox4.checked = visible;
                 }
             });
-
-
-
-        </script>
-    </body>
-</html>
