@@ -32,7 +32,7 @@
         <div id="panel">
             <h3>Capas</h3>
             <!-- checkboxes para activar/desactivar las capas -->
-            <input type="checkbox" id="check_layer_1"><label for="check_layer_1">Red Vial</label><br/>
+            <input type="checkbox" id="check_layer_1"><label for="check_layer_1">Actividades economicas</label><br/>
             <input type="checkbox" id="check_layer_2"><label for="check_layer_2">Vegetacion Cultivos</label><br/>
             <input type="checkbox" id="check_layer_3"><label for="check_layer_3">Vegetacion Arborea</label><br/>
         </div>
@@ -41,13 +41,13 @@
         <script type="text/javascript">
 
 
-            var red_vial = new ol.layer.Image({
-                title: "Red Vial",
+            var edif_religiosos = new ol.layer.Image({
+                title: "Actividades economicas",
                 //capa desactivada por defecto
                 visible: false,
                 source: new ol.source.ImageWMS({
                     url: URL_OGC,
-                    params: {LAYERS: 'red_vial'}
+                    params: {LAYERS: 'edif_religiosos'}
                 })
             });
             var veg_culti = new ol.layer.Image({
@@ -78,7 +78,7 @@
                             params: {LAYERS: 'ne:ne', VERSION: '1.1.1'}
                         })
                     }),
-                    red_vial,
+                    edif_religiosos,
                     //Agrego dos capas WMS mas
                     veg_culti,
                     veg_arbo
@@ -101,14 +101,14 @@
             checkbox1.addEventListener('change', function () {
                 var checked = this.checked;
                 //seteo la propiedad "visible" de mi capa en función al valor
-                if (checked !== red_vial.getVisible()) {
-                    red_vial.setVisible(checked);
+                if (checked !== edif_religiosos.getVisible()) {
+                    edif_religiosos.setVisible(checked);
                 }
             });
 
             //agrego un listener al evento change de la
             //propiedad "visible" de la capa
-            red_vial.on('change:visible', function () {
+            edif_religiosos.on('change:visible', function () {
                 var visible = this.getVisible();
                 //seteo el valor del checkbox
                 if (visible !== checkbox1.checked) {
