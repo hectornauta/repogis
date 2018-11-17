@@ -1,1 +1,1 @@
-var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/home/user/kuyis_server.qgz'
+var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/home/user/kuyis-server.qgz'

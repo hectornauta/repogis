@@ -207,7 +207,7 @@ var consultar = function(coordinate){
             var checkbox2 = document.getElementById('check_layer_2');
             checkbox2.addEventListener('change', function () {
                 var checked = this.checked;
-                if (checked !== veg_culti.getVisible()) {
+                if (checked !== veg_arbustiva.getVisible()) {
                     veg_arbustiva.setVisible(checked);
                 }
             });
@@ -222,7 +222,7 @@ var consultar = function(coordinate){
             var checkbox3 = document.getElementById('check_layer_3');
             checkbox3.addEventListener('change', function () {
                 var checked = this.checked;
-                if (checked !== veg_arbo.getVisible()) {
+                if (checked !== veg_cultivos.getVisible()) {
                     veg_cultivos.setVisible(checked);
                 }
             });

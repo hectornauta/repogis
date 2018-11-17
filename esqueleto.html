@@ -7,8 +7,6 @@
 
     <title>Kuyis</title>
 
-    <meta name="description" content="Source code generated using layoutit.com">
-    <meta name="author" content="LayoutIt!">
 		<style>
 				#map {
 						height: 600px;
@@ -22,14 +20,14 @@
 						background-color: #EEE;
 				}
 		</style>    
-		<link href="css/style.css" rel="stylesheet">
-		<link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
-		<link rel="stylesheet" href="ol4/css/bootstrap.css" type="text/css">
+	<link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
+	<link rel="stylesheet" href="ol4/css/bootstrap.css" type="text/css">
     <link rel="icon" type="image/png" sizes="16x16" href="imagenes/favicon.ico">
-		<script src="ol4/build/ol-debug.js" type="text/javascript"></script>
-    <script src="ol4/js/url.js" type="text/javascript"></script>
+	<script src="ol4/build/ol-debug.js" type="text/javascript"></script>
+    <script src="url.js" type="text/javascript"></script>
     <!--agregamos la libreria JQuery -->
-    <script src="ol4/js/jquery.min.js" type="text/javascript"></script>
+    <script src="jquery.min.js" type="text/javascript"></script>
 		
   </head>
   <body>
@@ -71,39 +69,25 @@
 												<ul class="interior" id="prueba">	
 													<!-- checkboxes para activar/desactivar las capas -->
 																<li class="list-group-item">
-																		Arborea
-																						<label class="checkbox">
-																										<input type="checkbox" id="check_layer_1"/>
-																										
-																						</label>
+																		<label for="check_layer_1">Arborea</label>
+																		<input type="checkbox" id="check_layer_1">																			
+																			
 																</li>
 																<li class="list-group-item">
-																		Arbustiva
-																						<label class="checkbox">
-																										<input type="checkbox" id="check_layer_2" />
-																										
-																						</label>
+																		<label for="check_layer_2">Arbustiva</label>
+																		<input type="checkbox" id="check_layer_2">
 																</li>
 																<li class="list-group-item">
-																		Cultivos
-																						<label class="checkbox">
-																										<input type="checkbox" id="check_layer_3" />
-																										
-																						</label>
+																		<label for="check_layer_3">Cultivos</label>
+																		<input type="checkbox" id="check_layer_3">
 																</li>
-																<li class="list-group-item">
-																		Hidrofila
-																								<label class="checkbox">
-																										<input type="checkbox" id="check_layer_4" />
-																										
-																								</label>
+																<li class="list-group-item">																		
+																		<label for="check_layer_4">Hidrofila</label>
+																		<input type="checkbox" id="check_layer_4">
 																</li>	
-																<li class="list-group-item">
-																		Suelo desnudo
-																								<label class="checkbox">
-																										<input type="checkbox" id="check_layer_5" />
-																										
-																								</label>
+																<li class="list-group-item">																		
+																		<label for="check_layer_5">Suelo desnudo</label>
+																		<input type="checkbox" id="check_layer_5">
 																</li>			
 												</ul>		
 												</li>		
@@ -112,40 +96,25 @@
 												<li><input type="checkbox" name="list" id="nivel2"><label for="nivel2">Suelo</label>
 													<ul class="interior" id="prueba2">	
 														<!-- checkboxes para activar/desactivar las capas -->
-																	<li class="list-group-item">
-																			Congelado
-																							<label class="checkbox">
-																											<input type="checkbox" id="check_layer_6"/>
-																											
-																							</label>
+																	<li class="list-group-item">																			
+																		<label for="check_layer_6">Congelado</label>
+																		<input type="checkbox" id="check_layer_6">
+																	</li>
+																	<li class="list-group-item">																		
+																		<label for="check_layer_7">Consolidado</label>
+																		<input type="checkbox" id="check_layer_7">
+																	</li>
+																	<li class="list-group-item">																		
+																		<label for="check_layer_8">Costero</label>
+																		<input type="checkbox" id="check_layer_8">
 																	</li>
 																	<li class="list-group-item">
-																			Consolidado
-																							<label class="checkbox">
-																											<input type="checkbox" id="check_layer_7" />
-																											
-																							</label>
-																	</li>
-																	<li class="list-group-item">
-																			Costero
-																							<label class="checkbox">
-																											<input type="checkbox" id="check_layer_8" />
-																											
-																							</label>
-																	</li>
-																	<li class="list-group-item">
-																			Hidromorfologico
-																									<label class="checkbox">
-																											<input type="checkbox" id="check_layer_9" />
-																											
-																									</label>
+																		<label for="check_layer_9">Hidromorfológico</label>
+																		<input type="checkbox" id="check_layer_9">
 																	</li>	
 																	<li class="list-group-item">
-																			No consolidado
-																									<label class="checkbox">
-																											<input type="checkbox" id="check_layer_10" />
-																											
-																									</label>
+																		<label for="check_layer_10">No consolidado</label>
+																		<input type="checkbox" id="check_layer_10">
 																	</li>			
 													</ul>		
 													</li>					
@@ -154,104 +123,68 @@
 													<li><input type="checkbox" name="list" id="nivel3"><label for="nivel3">Edificios</label>
 														<ul class="interior" id="prueba3">	
 															<!-- checkboxes para activar/desactivar las capas -->
-																		<li class="list-group-item">
-																				Construcciones turísticas
-																								<label class="checkbox">
-																												<input type="checkbox" id="check_layer_11"/>
-																												
-																								</label>
-																		</li>
-																		<li class="list-group-item">
-																				Deporte y esparcimiento
-																								<label class="checkbox">
-																												<input type="checkbox" id="check_layer_12" />
-																												
-																								</label>
-																		</li>
-																		<li class="list-group-item">
-																				Educativos
-																								<label class="checkbox">
-																												<input type="checkbox" id="check_layer_13" />
-																												
-																								</label>
-																		</li>
-																		<li class="list-group-item">
-																				Religiosos
-																										<label class="checkbox">
-																												<input type="checkbox" id="check_layer_14" />
-																												
-																										</label>
-																		</li>	
-																		<li class="list-group-item">
-																				Seguridad
-																										<label class="checkbox">
-																												<input type="checkbox" id="check_layer_15" />
-																												
-																										</label>
-																		</li>		
-																		<li class="list-group-item">
-																				Públicos
-																										<label class="checkbox">
-																												<input type="checkbox" id="check_layer_16" />
-																												
-																										</label>
-																		</li>	
-																		<li class="list-group-item">
-																				Ferroviarios
-																										<label class="checkbox">
-																												<input type="checkbox" id="check_layer_17" />
-																												
-																										</label>
-																		</li>	
-																		<li class="list-group-item">
-																				Salud
-																										<label class="checkbox">
-																												<input type="checkbox" id="check_layer_18" />
-																												
-																										</label>
-																		</li>		
+																	<li class="list-group-item">																				
+																		<label for="check_layer_11">Construcciones turísticas</label>
+																		<input type="checkbox" id="check_layer_11">	
+																	</li>
+																	<li class="list-group-item">																				
+																		<label for="check_layer_12">Deporte y esparcimiento</label>
+																		<input type="checkbox" id="check_layer_12">		
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_13">Educativos</label>
+																		<input type="checkbox" id="check_layer_13">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_14">Religiosos</label>
+																		<input type="checkbox" id="check_layer_14">
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_15">Seguridad</label>
+																		<input type="checkbox" id="check_layer_15">
+																	</li>		
+																	<li class="list-group-item">
+																		<label for="check_layer_16">Públicos</label>
+																		<input type="checkbox" id="check_layer_16">
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_17">Ferroviarios</label>
+																		<input type="checkbox" id="check_layer_17">
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_18">Salud</label>
+																		<input type="checkbox" id="check_layer_18">
+																	</li>		
 														</ul>		
 													</li>
 
 
-														<li><input type="checkbox" name="list" id="nivel4"><label for="nivel4">Agua</label>
-															<ul class="interior" id="prueba4">	
+													<li><input type="checkbox" name="list" id="nivel4"><label for="nivel4">Agua</label>
+														<ul class="interior" id="prueba4">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Cursos de agua
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_19"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Espejos de agua
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_20" />
-																													
-																									</label>
-																			</li>
-															</ul>		
-														</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_19">Cursos de agua</label>
+																		<input type="checkbox" id="check_layer_19">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_20">Espejos de agua</label>
+																		<input type="checkbox" id="check_layer_20">
+																	</li>
+														</ul>		
+													</li>	
 
 
 														<li><input type="checkbox" name="list" id="nivel5"><label for="nivel5">Actividades</label>
 															<ul class="interior" id="prueba5">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Agropecuarias
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_21"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Económicas
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_22" />
-																													
-																									</label>
-																			</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_21">Agropecuarias</label>
+																		<input type="checkbox" id="check_layer_21">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_22">Económicas</label>
+																		<input type="checkbox" id="check_layer_22">
+																	</li>
 															</ul>		
 														</li>
 
@@ -259,27 +192,18 @@
 														<li><input type="checkbox" name="list" id="nivel6"><label for="nivel6">Obra</label>
 															<ul class="interior" id="prueba6">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Portuaria
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_23"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Comunicación
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_24" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Edificaciones
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_25" />
-																													
-																									</label>
-																			</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_23">Portuaria</label>
+																		<input type="checkbox" id="check_layer_23">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_24">Comunicación</label>
+																		<input type="checkbox" id="check_layer_24">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_25">Edificaciones</label>
+																		<input type="checkbox" id="check_layer_25">
+																	</li>
 															</ul>		
 														</li>
 
@@ -287,27 +211,18 @@
 														<li><input type="checkbox" name="list" id="nivel7"><label for="nivel7">Limite</label>
 															<ul class="interior" id="prueba7">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					País
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_26"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Provincias
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_27" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Político-administrativo
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_28" />
-																													
-																									</label>
-																			</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_26">País</label>
+																		<input type="checkbox" id="check_layer_26">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_27">Salud</label>
+																		<input type="checkbox" id="check_layer_27">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_28">Político-administrativo</label>
+																		<input type="checkbox" id="check_layer_28">
+																	</li>
 															</ul>		
 														</li>
 
@@ -315,75 +230,48 @@
 														<li><input type="checkbox" name="list" id="nivel8"><label for="nivel8">Red</label>
 															<ul class="interior" id="prueba8">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Ferroviaria
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_29"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Vial
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_30" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Puente red vial
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_31" />
-																													
-																									</label>
-																			</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_29">Ferroviaria</label>
+																		<input type="checkbox" id="check_layer_29">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_30">Vial</label>
+																		<input type="checkbox" id="check_layer_30">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_31">Puente red vial</label>
+																		<input type="checkbox" id="check_layer_31">
+																	</li>
 															</ul>		
 														</li>
 
 														<li><input type="checkbox" name="list" id="nivel9"><label for="nivel9">Puntos</label>
 															<ul class="interior" id="prueba9">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Infraestructura aeroportuaria
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_32"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Infraestructura hidrográfica
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_33" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Estructura portuaria
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_34" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Localidades
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_35" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Marcas y señales
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_36" />
-																													
-																											</label>
-																			</li>	
-																			<li class="list-group-item">
-																					Señalizaciones
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_37" />
-																													
-																											</label>
-																			</li>		
+																	<li class="list-group-item">
+																		<label for="check_layer_32">Infraestructura aeroportuaria</label>
+																		<input type="checkbox" id="check_layer_32">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_33">Infraestructura hidrográfica</label>
+																		<input type="checkbox" id="check_layer_33">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_34">Estructura portuaria</label>
+																		<input type="checkbox" id="check_layer_34">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_35">Localidades</label>
+																		<input type="checkbox" id="check_layer_35">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_36">Marcas y señales</label>
+																		<input type="checkbox" id="check_layer_36">
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_37">Señalizaciones</label>
+																		<input type="checkbox" id="check_layer_37">
+																	</li>		
 																				
 															</ul>		
 														</li>
@@ -392,76 +280,46 @@
 														<li><input type="checkbox" name="list" id="nivel10"><label for="nivel10">Otras</label>
 															<ul class="interior" id="prueba10">	
 																<!-- checkboxes para activar/desactivar las capas -->
-																			<li class="list-group-item">
-																					Complejos de energía
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_38"/>
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Curvas de nivel
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_39" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Ejido
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_40" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Isla
-																									<label class="checkbox">
-																													<input type="checkbox" id="check_layer_41" />
-																													
-																									</label>
-																			</li>
-																			<li class="list-group-item">
-																					Limites de conduccion
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_42" />
-																													
-																											</label>
-																			</li>	
-																			<li class="list-group-item">
-																					Muro embalse
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_43" />
-																													
-																											</label>
-																			</li>		
-																			<li class="list-group-item">
-																					Puntos de alturas topográficas
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_44" />
-																													
-																											</label>
-																			</li>		
-																			<li class="list-group-item">
-																					Puntos del terreno
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_45" />
-																													
-																											</label>
-																			</li>		
-																			<li class="list-group-item">
-																					Salvado de obstaculo
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_46" />
-																													
-																											</label>
-																			</li>
-																			<li class="list-group-item">
-																					Vias secundarias
-																											<label class="checkbox">
-																													<input type="checkbox" id="check_layer_47" />
-																													
-																											</label>
-																			</li>			
+																	<li class="list-group-item">
+																		<label for="check_layer_38">Complejos de energía</label>
+																		<input type="checkbox" id="check_layer_38">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_39">Curvas de nivel</label>
+																		<input type="checkbox" id="check_layer_39">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_40">Ejido</label>
+																		<input type="checkbox" id="check_layer_40">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_41">Isla</label>
+																		<input type="checkbox" id="check_layer_41">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_42">Límites de conducción</label>
+																		<input type="checkbox" id="check_layer_42">
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_43">Muro de embalse</label>
+																		<input type="checkbox" id="check_layer_43">
+																	</li>		
+																	<li class="list-group-item">
+																		<label for="check_layer_44">Puntos de alturas topográficas</label>
+																		<input type="checkbox" id="check_layer_44">
+																	</li>		
+																	<li class="list-group-item">
+																		<label for="check_layer_45">Puntos del terreno</label>
+																		<input type="checkbox" id="check_layer_45">
+																	</li>		
+																	<li class="list-group-item">
+																		<label for="check_layer_46">Salvado de obstáculo</label>
+																		<input type="checkbox" id="check_layer_46">
+																	</li>
+																	<li class="list-group-item">
+																		<label for="check_layer_47">Vías secundarias</label>
+																		<input type="checkbox" id="check_layer_47">
+																	</li>			
 															</ul>		
 														</li>
 										</ul>
@@ -474,7 +332,7 @@
 	
 	<div id="map"></div>
   </div>
-		<script type="text/javascript" src='ol4/js/fun.js'></script>
+	<script src='fun.js' type="text/javascript"></script>
     <script src="ol4/js/jquery.min.js"></script>
     <script src="ol4/js/bootstrap.min.js"></script>
     
