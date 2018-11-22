@@ -248,3 +248,23 @@ var consultar = function(coordinate){
                     checkbox4.checked = visible;
                 }
             });
+
+
+            function mostrarAgregar(){
+            document.getElementById('Agregar').style.display = 'block';
+            document.getElementById('panel').style.display = 'none'
+            document.getElementById('consulta').style.display = 'none'}
+
+
+            function mostrarPanel(){
+            document.getElementById('Agregar').style.display = 'none';
+            document.getElementById('panel').style.display = 'block'
+            document.getElementById('consulta').style.display = 'none'}
+
+            function mostrarConsulta(){
+            document.getElementById('Agregar').style.display = 'none';
+            document.getElementById('panel').style.display = 'none'
+            document.getElementById('consulta').style.display = 'block'}
+
+
+                

@@ -19,6 +19,18 @@
 						float: left;
 						background-color: #EEE;
 				}
+				#Agregar{
+						height: 387px;
+						width: 21.5%;
+						float: left;
+						background-color: #EEE;
+				}
+				#consulta{
+						height: 387px;
+						width: 21.5%;
+						float: left;
+						background-color: #EEE;
+				}
 		</style>    
 	<link href="css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
@@ -28,7 +40,7 @@
     <script src="url.js" type="text/javascript"></script>
     <!--agregamos la libreria JQuery -->
     <script src="jquery.min.js" type="text/javascript"></script>
-		
+	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
   </head>
   <body>
 
@@ -43,13 +55,13 @@
 			</div>
 			<div class="btn-group" role="group">
 				 
-				<button class="btn btn-secondary" type="button">
+				<button class="btn btn-secondary" type="button" onclick="mostrarPanel()">
 					Visualizar capas
 				</button> 
-				<button class="btn btn-secondary" type="button">
+				<button class="btn btn-secondary" type="button" onclick="mostrarConsulta()">
 					Consultas
 				</button> 
-				<button class="btn btn-secondary" type="button">
+				<button class="btn btn-secondary" type="button" onclick="mostrarAgregar()">
 					Agregar informacion
 				</button> 
 				
@@ -330,6 +342,27 @@
 
 	</div>
 	
+	<div id='Agregar' style='display:none'>
+		<form class="form-inline">
+			<label>Capa&nbsp;</label>
+			<select id="type">
+			  <option value="Point">Punto</option>
+			  <option value="LineString">Linea</option>
+			  <option value="Polygon">Poligono</option>
+			  <option value="Circle">Circulo</option>
+			</select>
+		  </form>
+
+
+
+		  
+	</div>
+
+
+	<div id='consulta' style='display:none;'>
+		
+	</div>
+
 	<div id="map"></div>
   </div>
 	<script src='fun.js' type="text/javascript"></script>
