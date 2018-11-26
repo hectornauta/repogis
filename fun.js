@@ -43,7 +43,7 @@
 
 
 
-            var veg_arborea = new ol.layer.Image({title: "Arborea",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'veg_arborea'}})});
+var veg_arborea = new ol.layer.Image({title: "Arborea",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'veg_arborea'}})});
 var veg_arbustiva = new ol.layer.Image({title: "Arbustiva",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'veg_arbustiva'}})});
 var veg_cultivos = new ol.layer.Image({title: "Cultivos",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'veg_cultivos'}})});
 var veg_hidrofila = new ol.layer.Image({title: "Hidrofila",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'veg_hidrofila'}})});
@@ -90,7 +90,29 @@ var puntos_de_alturas_topograficas = new ol.layer.Image({title: "Puntos de altur
 var puntos_del_terreno = new ol.layer.Image({title: "Puntos del terreno",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'puntos_del_terreno'}})});
 var salvado_de_obstaculo = new ol.layer.Image({title: "Salvado de obstáculo",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'salvado_de_obstaculo'}})});
 var vias_secundarias = new ol.layer.Image({title: "Vías secundarias",visible:false,source: new ol.source.ImageWMS({url: URL_OGC,params: {LAYERS: 'vias_secundarias'}})});
-            var map = new ol.Map({
+ 
+var source = new ol.source.Vector();
+              var vector = new ol.layer.Vector({
+                source: source,
+                style: new ol.style.Style({
+                  fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: '#ffcc33',
+                    width: 2
+                  }),
+                  image: new ol.style.Circle({
+                    radius: 7,
+                    fill: new ol.style.Fill({
+                      color: '#ffcc33'
+                    })
+                  })
+                })
+              });
+
+var overviewView = new ol.View({projection:"EPSG:4326"});  
+var map = new ol.Map({
                 target: 'map',
                 controls: ol.control.defaults().extend([
                     new ol.control.FullScreen(), new ol.control.OverviewMap( ({
