@@ -234,11 +234,13 @@ th {
 
 label {
   display: inline-block;
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 button {
   border-radius: 0;
+ 
 }
 
 button:focus {
@@ -255,6 +257,8 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 button,
@@ -9064,4 +9068,72 @@ a.text-dark:hover, a.text-dark:focus {
 #prueba8 label:before {content:none;}
 #prueba9 label:before {content:none;}
 #prueba9 label:before {content:none;}
+
+.map:-moz-full-screen {
+  height: 100%;
+}
+.map:-webkit-full-screen {
+  height: 100%;
+}
+.map:-ms-fullscreen {
+  height: 100%;
+}
+.map:fullscreen {
+  height: 100%;
+}
+/* position the rotate control lower than usual */
+.ol-rotate {
+  top: 3em;
+}
+
+button.code {
+  font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+  font-size: 12px;
+  padding: 5px;
+  margin: 0 5px;
+}   
+
+.ol-custom-overviewmap,
+      .ol-custom-overviewmap.ol-uncollapsible {
+        bottom: auto;
+        left: auto;
+        right: 0;
+        top: 0;
+      }
+
+      .ol-custom-overviewmap:not(.ol-collapsed)  {
+        border: 1px solid black;
+      }
+
+      .ol-custom-overviewmap .ol-overviewmap-map {
+        border: none;
+        width: 300px;
+      }
+
+      .ol-custom-overviewmap .ol-overviewmap-box {
+        border: 2px solid red;
+      }
+
+      .ol-custom-overviewmap:not(.ol-collapsed) button{
+        bottom: auto;
+        left: auto;
+        right: 1px;
+        top: 1px;
+      }
+
+      .ol-rotate {
+        top: 170px;
+        right: 0;
+      }
+
+
+      #coords{
+        position:absolute; /*El div será ubicado con relación a la pantalla*/
+        left:0px; /*A la derecha deje un espacio de 0px*/
+        right:0px; /*A la izquierda deje un espacio de 0px*/
+        bottom:0px; /*Abajo deje un espacio de 0px*/
+        height:50px; /*alto del div*/
+        z-index:0;
+        width:100%
+         }
 /*# sourceMappingURL=bootstrap.css.map */

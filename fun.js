@@ -68,8 +68,40 @@
                     params: {LAYERS: 'veg_cultivos'}
                 })
             });
+
+            //Agregar información
+            
+        
+              var source = new ol.source.Vector();
+              var vector = new ol.layer.Vector({
+                source: source,
+                style: new ol.style.Style({
+                  fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: '#ffcc33',
+                    width: 2
+                  }),
+                  image: new ol.style.Circle({
+                    radius: 7,
+                    fill: new ol.style.Fill({
+                      color: '#ffcc33'
+                    })
+                  })
+                })
+              });
+
+            var overviewView = new ol.View({projection:"EPSG:4326"});  
             var map = new ol.Map({
                 target: 'map',
+                controls: ol.control.defaults().extend([
+                    new ol.control.FullScreen(), new ol.control.OverviewMap( ({
+                        view: overviewView
+                      }))]),
+                  interactions: ol.interaction.defaults().extend([
+                    new ol.interaction.DragRotateAndZoom()
+                  ]),
                 layers: [
                     new ol.layer.Tile({
                         title: "Natural Earth Base Map",
@@ -84,6 +116,7 @@
                     veg_cultivos,
                     //agrego la capa vectorial
                     vectorLayer,
+                    vector
 
                 ],
                 view: new ol.View({
@@ -94,6 +127,38 @@
                 })
             });
             
+            
+
+            var modify = new ol.interaction.Modify({source: source});
+            map.addInteraction(modify);
+      
+            var draw, snap; // global so we can remove them later
+            var typeSelect = document.getElementById('type');
+      
+            function addInteractions() {
+                var value = typeSelect.value;
+                if (value !== 'None') {
+              draw = new ol.interaction.Draw({
+                source: source,
+                type: typeSelect.value
+              });
+              map.addInteraction(draw); }
+              snap = new ol.interaction.Snap({source: source});
+              map.addInteraction(snap);
+      
+            }
+      
+            /**
+             * Handle change event.
+             */
+            typeSelect.onchange = function() {
+              map.removeInteraction(draw);
+              map.removeInteraction(snap);
+              addInteractions();
+            };
+      
+            addInteractions();    
+
 
 
 //function que va a realizar la peticion de la consulta
@@ -266,57 +331,49 @@ var consultar = function(coordinate){
             document.getElementById('panel').style.display = 'none'
             document.getElementById('consulta').style.display = 'block'}
 
-
-            var raster = new ol.layer.Tile({
-                source: new ol.source.OSM()
-              });
-        
-              var source = new ol.source.Vector();
-              var vector = new ol.layer.Vector({
-                source: source,
-                style: new ol.style.Style({
-                  fill: new ol.style.Fill({
-                    color: 'rgba(255, 255, 255, 0.2)'
-                  }),
-                  stroke: new ol.style.Stroke({
-                    color: '#ffcc33',
-                    width: 2
-                  }),
-                  image: new ol.style.Circle({
-                    radius: 7,
-                    fill: new ol.style.Fill({
-                      color: '#ffcc33'
-                    })
-                  })
-                })
-              });
-        
-              
-        
-              var modify = new ol.interaction.Modify({source: source});
-              map.addInteraction(modify);
-        
-              var draw, snap; // global so we can remove them later
-              var typeSelect = document.getElementById('type');
-        
-              function addInteractions() {
-                draw = new ol.interaction.Draw({
-                  source: source,
-                  type: typeSelect.value
+            //Exportar png
+            document.getElementById('export-png').addEventListener('click', function() {
+                map.once('postcompose', function(event) {
+                  var canvas = event.context.canvas;
+                  if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+                  } else {
+                    canvas.toBlob(function(blob) {
+                      saveAs(blob, 'map.png');
+                    });
+                  }
                 });
-                map.addInteraction(draw);
-                snap = new ol.interaction.Snap({source: source});
-                map.addInteraction(snap);
+                map.renderSync();
+              });     
+              
+              //Marcar desmarcar todas las capas
+              $(document).ready(function() {
+                selected = true;
+                $('#seleccionar-todo').click(function() {
+                  if (selected) {
+                    $('#panel input[type=checkbox]').prop("checked", true);
+                  } else {
+                    $('#panel input[type=checkbox]').prop("checked", false);
+                  }
+                  selected = !selected;
+                });
+              });
+
+
+              //Indica las coordenadas donde esta el cursor pero no anda todavia
+              map.addControl(
+                new OpenLayers.Control.MousePosition({
+                    prefix: '<a target="_blank" ' +
+                        'href="http://spatialreference.org/ref/epsg/4326/">' +
+                        'EPSG:4326</a> coordinates: ',
+                    separator: ' | ',
+                    numDigits: 2,
+                    emptyString: 'Mouse is not over map.'
+                })
+            );
+
+            map.events.register("mousemove", map, function(e) {
+                var position = this.events.getMousePosition(e);
+                OpenLayers.Util.getElement("coords").innerHTML = position;
+            });
         
-              }
-        
-              /**
-               * Handle change event.
-               */
-              typeSelect.onchange = function() {
-                map.removeInteraction(draw);
-                map.removeInteraction(snap);
-                addInteractions();
-              };
-        
-              addInteractions();    
