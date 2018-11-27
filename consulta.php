@@ -2,12 +2,13 @@
 
 header('Content-type: text/html; charset=utf-8;');
 $wkt =  $_GET['wkt'];
+$activa =  $_GET['activa'];
 
 
-$link= pg_connect("host=localhost user=user password=user dbname=qgis-server");
+$link= pg_connect("host=localhost user=user password=user dbname=kuyis");
 
 $query=<<<EOD
-SELECT * FROM red_vial WHERE 
+SELECT * FROM $activa WHERE 
 st_intersects(
 ST_geomfromtext('$wkt',4326),
 geom

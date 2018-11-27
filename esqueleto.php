@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Kuyis </title>
+    <title>Kuyis</title>
 
 		<style>
 				#map {
@@ -14,7 +14,7 @@
 						float: right;
 				}
 				#panel{
-						height: 387px;
+						height: 423px;
 						width: 21.5%;
 						float: left;
 						background-color: #EEE;
@@ -31,6 +31,11 @@
 						float: left;
 						background-color: #EEE;
 				}
+				#imagen {
+						width: 7%;
+						float: right;
+						padding-top:0.5rem
+				}
 		</style>    
 	<link href="css/style.css" rel="stylesheet">
 	<link rel="stylesheet" href="ol4/css/ol.css" type="text/css">
@@ -41,7 +46,8 @@
     <!--agregamos la libreria JQuery -->
     <script src="jquery.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
-  </head>
+	<script src="ol4/ol/ol/control/overviewmap.js" type="text/javascript"></script>	
+</head>
   <body>
 
   <div class="container-fluid">
@@ -66,24 +72,28 @@
 				</button> 
 				
 			</div>
+			
+			<div id="imagen">
+			<a id="export-png" class="btn btn-default"><i class="fa fa-download"></i> Download PNG</a>
+			</div>
 		</div>
 		
 	</div>
 	
     
-	<div id="panel">			
+	<div id="panel">
+			<button id="seleccionar-todo" type="checkbox" >Marcar/Desmarcar todas las capas</button>			
 			<div class="col-md-12 offset-md-3">
-					<div class="card">
-										
-								
+					<div class="card">									
+
 										<ul class="list-group list-group-flush">
+												
 												<li><input type="checkbox" name="list" id="nivel1"><label for="nivel1">Vegetacion</label>
 												<ul class="interior" id="prueba">	
 													<!-- checkboxes para activar/desactivar las capas -->
 																<li class="list-group-item">
 																		<label for="check_layer_1">Arborea</label>
 																		<input type="checkbox" id="check_layer_1">																			
-																			
 																</li>
 																<li class="list-group-item">
 																		<label for="check_layer_2">Arbustiva</label>
@@ -342,29 +352,40 @@
 
 	</div>
 	
-	<div id='Agregar' style='display:none'>
+	<div id='Agregar' style='display:none'>		
 		<form class="form-inline">
-			<label>Capa&nbsp;</label>
+			<label>Geometría&nbsp;</label>
 			<select id="type">
 			  <option value="Point">Punto</option>
 			  <option value="LineString">Linea</option>
 			  <option value="Polygon">Poligono</option>
 			  <option value="Circle">Circulo</option>
+			   <option value="None" selected="selected">Ninguno</option>
 			</select>
 		  </form>
 
 
 
-		  
+
 	</div>
 
 
 	<div id='consulta' style='display:none;'>
+		<input
+		type="radio"
+		name="controles"
+		id="controles_consulta"
+		value="consulta"
+		onchange="seleccionarControl(this)"
+		>
+		<label for="controles_consulta"> Consulta</label><br/>
 		
 	</div>
 
 	<div id="map"></div>
+	
   </div>
+  <div id="coords" position="absolute"></div>
 	<script src='fun.js' type="text/javascript"></script>
     <script src="ol4/js/jquery.min.js"></script>
     <script src="ol4/js/bootstrap.min.js"></script>
