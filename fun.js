@@ -1,6 +1,20 @@
         
 var activa = '';
 
+document.getElementById('export-png').addEventListener('click', function() {
+    map.once('postcompose', function(event) {
+      var canvas = event.context.canvas;
+      if (navigator.msSaveBlob) {
+        navigator.msSaveBlob(canvas.msToBlob(), 'map.png');
+      } else {
+        canvas.toBlob(function(blob) {
+          saveAs(blob, 'map.png');
+        });
+      }
+    });
+    map.renderSync();
+  });
+
 var checkboxes = ['check_layer_1','check_layer_2','check_layer_3','check_layer_4','check_layer_5','check_layer_6','check_layer_7','check_layer_8','check_layer_9','check_layer_10','check_layer_11','check_layer_12','check_layer_13','check_layer_14','check_layer_15','check_layer_16','check_layer_17','check_layer_18','check_layer_19','check_layer_20','check_layer_21','check_layer_22','check_layer_23','check_layer_24','check_layer_25','check_layer_26','check_layer_27','check_layer_28','check_layer_29','check_layer_30','check_layer_31','check_layer_32','check_layer_33','check_layer_34','check_layer_35','check_layer_36','check_layer_37','check_layer_38','check_layer_39','check_layer_40','check_layer_41','check_layer_42','check_layer_43','check_layer_44','check_layer_45','check_layer_46','check_layer_47'];
 var capas = [
     'veg_arborea',
@@ -1454,4 +1468,6 @@ var raster = new ol.layer.Tile({
     addInteractions();
     };
 
-    addInteractions();    
+    addInteractions();
+
+    

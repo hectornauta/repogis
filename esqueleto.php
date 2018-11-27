@@ -47,6 +47,9 @@
     <script src="jquery.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
 	<script src="ol4/ol/ol/control/overviewmap.js" type="text/javascript"></script>	
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
 </head>
   <body>
 
@@ -74,7 +77,7 @@
 			</div>
 			
 			<div id="imagen">
-			<a id="export-png" class="btn btn-default"><i class="fa fa-download"></i> Download PNG</a>
+			<a id="export-png" class="btn btn-success"><i class="fa fa-download"></i> Descargar PNG</a>
 			</div>
 		</div>
 		
@@ -387,6 +390,7 @@
   </div>
   <div id="coords" position="absolute"></div>
 	<script src='fun.js' type="text/javascript"></script>
+	<script src='reimg.js' type="text/javascript"></script>
     <script src="ol4/js/jquery.min.js"></script>
     <script src="ol4/js/bootstrap.min.js"></script>
     
