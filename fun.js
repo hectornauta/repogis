@@ -1421,7 +1421,7 @@ var raster = new ol.layer.Tile({
     });
 
     var source = new ol.source.Vector();
-    var vector = new ol.layer.Vector({
+    var vectorLayer = new ol.layer.Vector({
     source: source,
     style: new ol.style.Style({
         fill: new ol.style.Fill({
@@ -1456,6 +1456,20 @@ var raster = new ol.layer.Tile({
     map.addInteraction(draw);
     snap = new ol.interaction.Snap({source: source});
     map.addInteraction(snap);
+    draw.on('drawend', function(evt) {
+        saveData();
+      });
+
+    }
+    function saveData() {
+        var nombre = prompt("Ingrese el nombre de esta mierda", "Tu vieja en tanga");
+        var allFeatures = vectorLayer.getSource().getFeatures();
+      window.alert(nombre);
+      console.log(allFeatures);
+      if (allFeatures.length>0)
+      {
+        console.log(allFeatures[0].N.geometry.A);
+      }
 
     }
 
@@ -1469,5 +1483,6 @@ var raster = new ol.layer.Tile({
     };
 
     addInteractions();
+
 
     
