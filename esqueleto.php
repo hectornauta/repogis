@@ -315,7 +315,7 @@
 																	<li class="list-group-item">
 																		<label for="check_layer_27">Provincias</label>
 																		<input type="checkbox" id="check_layer_27">
-																		<button class="legbutton" onclick="cambiarLeyenda('red_vial')">i</button>
+																		<button class="legbutton" onclick="cambiarLeyenda('provincias')">i</button>
 																	</li>
 																	<li class="list-group-item">
 																		<label for="check_layer_28">Político-administrativo</label>
