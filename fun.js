@@ -1415,74 +1415,60 @@ document.getElementById('Agregar').style.display = 'none';
 document.getElementById('panel').style.display = 'none'
 document.getElementById('consulta').style.display = 'block'}
 
+function cambiarLeyenda(x){
+    document.getElementById('leg').src=URL_LEG+x;
+}
 
-var raster = new ol.layer.Tile({
-    source: new ol.source.OSM()
-    });
-
-    var source = new ol.source.Vector();
-    var vectorLayer = new ol.layer.Vector({
-    source: source,
-    style: new ol.style.Style({
-        fill: new ol.style.Fill({
-        color: 'rgba(255, 255, 255, 0.2)'
-        }),
-        stroke: new ol.style.Stroke({
-        color: '#ffcc33',
-        width: 2
-        }),
-        image: new ol.style.Circle({
-        radius: 7,
-        fill: new ol.style.Fill({
-            color: '#ffcc33'
-        })
-        })
-    })
-    });
-
-    
-
-    var modify = new ol.interaction.Modify({source: source});
-    map.addInteraction(modify);
-
-    var draw, snap; // global so we can remove them later
-    var typeSelect = document.getElementById('type');
-
-    function addInteractions() {
-    draw = new ol.interaction.Draw({
-        source: source,
-        type: typeSelect.value
-    });
-    map.addInteraction(draw);
-    snap = new ol.interaction.Snap({source: source});
-    map.addInteraction(snap);
-    draw.on('drawend', function(evt) {
-        saveData();
-      });
-
-    }
-    function saveData() {
-        var nombre = prompt("Ingrese el nombre de esta mierda", "Tu vieja en tanga");
-        var allFeatures = vectorLayer.getSource().getFeatures();
-      window.alert(nombre);
-      console.log(allFeatures);
-      if (allFeatures.length>0)
-      {
-        console.log(allFeatures[0].N.geometry.A);
-      }
-
-    }
-
-    /**
-     * Handle change event.
-     */
-    typeSelect.onchange = function() {
-    map.removeInteraction(draw);
-    map.removeInteraction(snap);
-    addInteractions();
-    };
-
-    addInteractions();
-
-
-    
+            var raster = new ol.layer.Tile({
+                source: new ol.source.OSM()
+              });
+        
+              var source = new ol.source.Vector();
+              var vector = new ol.layer.Vector({
+                source: source,
+                style: new ol.style.Style({
+                  fill: new ol.style.Fill({
+                    color: 'rgba(255, 255, 255, 0.2)'
+                  }),
+                  stroke: new ol.style.Stroke({
+                    color: '#ffcc33',
+                    width: 2
+                  }),
+                  image: new ol.style.Circle({
+                    radius: 7,
+                    fill: new ol.style.Fill({
+                      color: '#ffcc33'
+                    })
+                  })
+                })
+              });
+        
+              
+        
+              var modify = new ol.interaction.Modify({source: source});
+              map.addInteraction(modify);
+        
+              var draw, snap; // global so we can remove them later
+              var typeSelect = document.getElementById('type');
+        
+              function addInteractions() {
+                draw = new ol.interaction.Draw({
+                  source: source,
+                  type: typeSelect.value
+                });
+                map.addInteraction(draw);
+                snap = new ol.interaction.Snap({source: source});
+                map.addInteraction(snap);
+        
+              }
+        
+              /**
+               * Handle change event.
+               */
+              typeSelect.onchange = function() {
+                map.removeInteraction(draw);
+                map.removeInteraction(snap);
+                addInteractions();
+              };
+        
+              addInteractions();    

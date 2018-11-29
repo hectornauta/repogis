@@ -1,1 +1,2 @@
-var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/home/user/kuyis-server.qgz'
+var URL_OGC = '/cgi-bin/qgis_mapserv.fcgi?map=/home/user/kuyis-server.qgz';
+var URL_LEG = 'http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/home/user/kuyis-server.qgz&SERVICE=WMS&REQUEST=GetLegendGraphics&FORMAT=image/png&LAYERS='
