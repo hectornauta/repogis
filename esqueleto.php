@@ -400,6 +400,11 @@
 																		<input type="checkbox" id="check_layer_47">
 																		<button class="legbutton" onclick="cambiarLeyenda('vias_secundarias')">i</button>
 																	</li>		
+																	</li>	
+																	<li class="list-group-item">
+																		<label for="check_layer_48">Puntos</label>
+																		<input type="checkbox" id="check_layer_48">
+																	</li>			
 															</ul>		
 														</li>
 										</ul>
@@ -418,7 +423,7 @@
 			  <option value="LineString">Linea</option>
 			  <option value="Polygon">Poligono</option>
 			  <option value="Circle">Circulo</option>
-			   <option value="None" selected="selected">Ninguno</option>
+			  <option value="None" selected="selected">Ninguno</option>
 			</select>
 		  </form>
 

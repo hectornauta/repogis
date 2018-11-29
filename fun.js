@@ -15,7 +15,7 @@ document.getElementById('export-png').addEventListener('click', function() {
     map.renderSync();
   });
 
-var checkboxes = ['check_layer_1','check_layer_2','check_layer_3','check_layer_4','check_layer_5','check_layer_6','check_layer_7','check_layer_8','check_layer_9','check_layer_10','check_layer_11','check_layer_12','check_layer_13','check_layer_14','check_layer_15','check_layer_16','check_layer_17','check_layer_18','check_layer_19','check_layer_20','check_layer_21','check_layer_22','check_layer_23','check_layer_24','check_layer_25','check_layer_26','check_layer_27','check_layer_28','check_layer_29','check_layer_30','check_layer_31','check_layer_32','check_layer_33','check_layer_34','check_layer_35','check_layer_36','check_layer_37','check_layer_38','check_layer_39','check_layer_40','check_layer_41','check_layer_42','check_layer_43','check_layer_44','check_layer_45','check_layer_46','check_layer_47'];
+var checkboxes = ['check_layer_1','check_layer_2','check_layer_3','check_layer_4','check_layer_5','check_layer_6','check_layer_7','check_layer_8','check_layer_9','check_layer_10','check_layer_11','check_layer_12','check_layer_13','check_layer_14','check_layer_15','check_layer_16','check_layer_17','check_layer_18','check_layer_19','check_layer_20','check_layer_21','check_layer_22','check_layer_23','check_layer_24','check_layer_25','check_layer_26','check_layer_27','check_layer_28','check_layer_29','check_layer_30','check_layer_31','check_layer_32','check_layer_33','check_layer_34','check_layer_35','check_layer_36','check_layer_37','check_layer_38','check_layer_39','check_layer_40','check_layer_41','check_layer_42','check_layer_43','check_layer_44','check_layer_45','check_layer_46','check_layer_47','check_layer_48'];
 var capas = [
     'veg_arborea',
     'veg_arbustiva',
@@ -72,7 +72,9 @@ var capas = [
     'puntos_de_alturas_topograficas',
     'puntos_del_terreno',
     'salvado_de_obstaculo',
-    'vias_secundarias'];
+    'vias_secundarias',
+    'puntos'
+];
 
 //creo un source de tipo Vector
 var vectorSource = new ol.source.Vector({
@@ -538,6 +540,15 @@ var veg_arborea = new ol.layer.Image({
     params: {LAYERS: 'vias_secundarias'}
     })
     });
+    
+    var puntos = new ol.layer.Image({
+    title: "Puntos",
+    visible:false,
+    source: new ol.source.ImageWMS({
+    url: URL_OGC,
+    params: {LAYERS: 'puntos'}
+    })
+    });
 var map = new ol.Map({
     target: 'map',
     layers: [
@@ -551,7 +562,7 @@ var map = new ol.Map({
         veg_arborea,veg_arbustiva,veg_cultivos,veg_hidrofila,veg_suelo_desnudo,sue_congelado,sue_consolidado,sue_costero,sue_hidromorfologico,sue_no_consolidado,edif_construcciones_turisticas,edif_depor_y_esparcimiento,edif_educacion,edif_religiosos,edificio_de_seguridad_ips,edificio_publico_ips,edificios_ferroviarios,edificio_de_salud_ips,curso_de_agua_hid,espejo_de_agua_hid,actividades_agropecuarias,actividades_economicas,obra_portuaria,obra_de_comunicación,otras_edificaciones,pais_lim,provincias,limite_politico_administrativo_lim,red_ferroviaria,red_vial,puente_red_vial_puntos,infraestructura_aeroportuaria_punto,infraestructura_hidro,estructuras_portuarias,localidades,marcas_y_señales,señalizaciones,complejo_de_energia_ene,curvas_de_nivel,ejido,isla,líneas_de_conducción_ene,muro_embalse,puntos_de_alturas_topograficas,puntos_del_terreno,salvado_de_obstaculo,vias_secundarias
         ,
         //agrego la capa vectorial
-        vectorLayer
+        puntos
 
     ],
     view: new ol.View({
@@ -1390,13 +1401,22 @@ var seleccionarControl = function (el) {
            checkbox47.checked = visible;
            }
            });
+           
+           var checkbox48 = document.getElementById('check_layer_48');
+           checkbox48.addEventListener('change', function () {
+           var checked = this.checked;
+           if (checked !== puntos.getVisible()) {
+            puntos.setVisible(checked);
+           }
+           });
+           
+           puntos.on('change:visible', function () {
+           var visible = this.getVisible();
+           if (visible !== checkbox48.checked) {
+           checkbox48.checked = visible;
+           }
+           });
             
-vectorLayer.on('change:visible', function () {
-    var visible = this.getVisible();
-    if (visible !== checkbox4.checked) {
-        checkbox4.checked = visible;
-    }
-});
 
 
 function mostrarAgregar(){
@@ -1419,56 +1439,91 @@ function cambiarLeyenda(x){
     document.getElementById('leg').src=URL_LEG+x;
 }
 
-            var raster = new ol.layer.Tile({
-                source: new ol.source.OSM()
-              });
+var raster = new ol.layer.Tile({
+    source: new ol.source.OSM()
+    });
+
+    var source = new ol.source.Vector();
+    var puntos = new ol.layer.Vector({
+    source: source,
+    style: new ol.style.Style({
+        fill: new ol.style.Fill({
+        color: 'rgba(255, 255, 255, 0.2)'
+        }),
+        stroke: new ol.style.Stroke({
+        color: '#ffcc33',
+        width: 2
+        }),
+        image: new ol.style.Circle({
+        radius: 7,
+        fill: new ol.style.Fill({
+            color: '#ffcc33'
+        })
+        })
+    })
+    });
+
+    
+
+    var modify = new ol.interaction.Modify({source: source});
+    map.addInteraction(modify);
+
+    var draw, snap; // global so we can remove them later
+    var typeSelect = document.getElementById('type');
+
+    function addInteractions() {
+    draw = new ol.interaction.Draw({
+        source: source,
+        type: typeSelect.value
+    });
+    map.addInteraction(draw);
+    snap = new ol.interaction.Snap({source: source});
+    map.addInteraction(snap);
+    draw.on('drawend', function(evt) {
         
-              var source = new ol.source.Vector();
-              var vector = new ol.layer.Vector({
-                source: source,
-                style: new ol.style.Style({
-                  fill: new ol.style.Fill({
-                    color: 'rgba(255, 255, 255, 0.2)'
-                  }),
-                  stroke: new ol.style.Stroke({
-                    color: '#ffcc33',
-                    width: 2
-                  }),
-                  image: new ol.style.Circle({
-                    radius: 7,
-                    fill: new ol.style.Fill({
-                      color: '#ffcc33'
-                    })
-                  })
-                })
-              });
-        
-              
-        
-              var modify = new ol.interaction.Modify({source: source});
-              map.addInteraction(modify);
-        
-              var draw, snap; // global so we can remove them later
-              var typeSelect = document.getElementById('type');
-        
-              function addInteractions() {
-                draw = new ol.interaction.Draw({
-                  source: source,
-                  type: typeSelect.value
-                });
-                map.addInteraction(draw);
-                snap = new ol.interaction.Snap({source: source});
-                map.addInteraction(snap);
-        
-              }
-        
-              /**
-               * Handle change event.
-               */
-              typeSelect.onchange = function() {
-                map.removeInteraction(draw);
-                map.removeInteraction(snap);
-                addInteractions();
-              };
-        
-              addInteractions();    
+        var nombre = prompt("Ingrese el nombre de esta interacción", "Nombre");
+        var currentFeature = evt.feature;//this is the feature fired the event
+        var restOfFeats = puntos.getSource().getFeatures();//rest of feats
+        var allFeatures = restOfFeats.concat(currentFeature);//concatenate the event feat to the array of source feats
+
+        //var allFeatures = puntos.getSource().getFeatures();
+        //console.log(allFeatures);
+
+        currentFeature.setGeometry(currentFeature.getGeometry(),'EPSG:4326');
+
+        //if (allFeatures.length>0)
+        //{
+            var format = new ol.format.WKT();
+
+            // given that 'layer' is a vector layer attached to the map with some features:
+            //var featurejson = format.writeFeature(currentFeature);
+            var geometryjson = format.writeGeometry(currentFeature.getGeometry());
+            var featurejson = format.writeFeature(currentFeature);
+            window.alert(featurejson);
+            window.alert(geometryjson);
+            //geometryjson = format.writeFeature(geometryjson);
+            //var featuresjson = format.writeFeatures(allFeatures);
+            console.log('Objeto: '+geometryjson);
+            //console.log('Todos'+featuresjson);
+            window.open('insertar.php?wkt='+geometryjson+'&nombre='+nombre);return;
+
+        //}
+
+
+      });
+
+    }
+
+    /**
+     * Handle change event.
+     */
+    typeSelect.onchange = function() {
+    map.removeInteraction(draw);
+    map.removeInteraction(snap);
+    addInteractions();
+    };
+
+    addInteractions();
+
+
+    
