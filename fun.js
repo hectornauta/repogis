@@ -1,5 +1,6 @@
-        
+var coso = ''; 
 var activa = '';
+var lugares = [];
 
 document.getElementById('export-png').addEventListener('click', function() {
     map.once('postcompose', function(event) {
@@ -549,7 +550,16 @@ var veg_arborea = new ol.layer.Image({
     params: {LAYERS: 'puntos'}
     })
     });
+var scaleLineControl = new ol.control.ScaleLine();
+scaleLineControl.setUnits('metric');
 var map = new ol.Map({
+    controls: ol.control.defaults({
+      attributionOptions: {
+        collapsible: false
+      }
+    }).extend([
+      scaleLineControl
+    ]),
     target: 'map',
     layers: [
         new ol.layer.Tile({
@@ -567,19 +577,18 @@ var map = new ol.Map({
     ],
     view: new ol.View({
         projection: 'EPSG:4326',
-        center: [-59, -27.5],
-        zoom: 4
+        center: [-59, -35.5],
+        zoom: 5
 
     })
 });
-            
-
 
 //function que va a realizar la peticion de la consulta
-var consultar = function(coordinate){
+var consultar = function(coordinate)
+{   
 
 
-	console.log(coordinate);
+	//console.log(coordinate);
 	if(coordinate.length==2){
 		//es un punto [lon,lat]
 		var wkt='POINT('+coordinate[0]+' ' +coordinate[1]+')';
@@ -591,21 +600,53 @@ var consultar = function(coordinate){
 		}
 		wkt+=coordinate[0][0][0]+' '+coordinate[0][0][1]+'))'
 	}
-    console.log(wkt);
+    //console.log(wkt);
+
+    if (coso == 'distancia')
+    {
+        var finaldistancia = 0;
+        lugares.push(coordinate);
+        //window.alert('El arreglo es: '+lugares);
+        //console.log(lugares);
+        //console.log('Tamaño: '+lugares.length);
+        var maximo = lugares.length;
+        //console.log(maximo);
+        if(maximo>1)
+        {
+            var Geographic  = new ol.proj.Projection("EPSG:4326"); 
+            var Mercator = new ol.proj.Projection("EPSG:900913");
+            var point1 = new ol.geom.Point((lugares[maximo-1])[0], (lugares[maximo-1])[1]).transform(Geographic, Mercator);
+            var point2 = new ol.geom.Point((lugares[maximo-2])[0], (lugares[maximo-2])[1]).transform(Geographic, Mercator);
+            var linea = new ol.geom.LineString([lugares[maximo-1],lugares[maximo-2]]);
+            console.log(point1);
+            console.log(point2);
+            //window.alert(linea);
+            window.alert('Distancia de los 2 últimos puntos: '+(100*linea.getLength())+' kilómetros');
+            //window.alert('Distancia: '+point1.distanceTo(point2));
+        }
+
+               
+        //return point1.distanceTo(point2);
+ 
+        //window.alert('Coordenadas del punto '+coordinate);
+    }
 
     var i;
     activa = '';
     for (i = 0; i < checkboxes.length; i++)
     { 
-        console.log(document.getElementById(checkboxes[i]).checked);
-        console.log(capas[i]);
+        //console.log(document.getElementById(checkboxes[i]).checked);
+        //console.log(capas[i]);
         if (document.getElementById(checkboxes[i]).checked==true)
         {
             activa = capas[i];
         }
     }
-    console.log(activa);
-	window.open('consulta.php?wkt='+wkt+'&activa='+activa);return;
+    //console.log(activa);
+    if (coso=='consulta')
+    {
+    window.open('consulta.php?wkt='+wkt+'&activa='+activa);return;
+    }
 
         // jQuery.ajax({
         //     url:'consulta.php',
@@ -637,7 +678,7 @@ var selectInteraction = new ol.interaction.DragBox(
 
 selectInteraction.on('boxend', function (evt) {
     //this: referencia al selectInteraction
-    console.log('boxend', this.getGeometry().getCoordinates());
+    //console.log('boxend', this.getGeometry().getCoordinates());
     consultar(selectInteraction.getGeometry().getCoordinates());
 
 });
@@ -645,15 +686,19 @@ selectInteraction.on('boxend', function (evt) {
 //funcion para el evento click en el mapa
 var clickEnMapa = function (evt) {
     //muestro por consola las coordenadas del evento
-    console.log('click',evt.coordinate);
+    //console.log('click',evt.coordinate);
     consultar(evt.coordinate);
 };
 
 
 
 //function para "cambiar" de interaction en function del value de los radios
-var seleccionarControl = function (el) {
-    if (el.value == "consulta") {
+var seleccionarControl = function (el)
+{
+    if (el.value == "consulta")
+    {
+        coso = 'consulta';
+        //window.alert(el.value);
         //agrego la interaccion del dragbox
         //la cual tiene precedencia sobre las otras
         map.addInteraction(selectInteraction);
@@ -661,14 +706,26 @@ var seleccionarControl = function (el) {
         //subscribo una funcion al evento click del mapa
         map.on('click', clickEnMapa);
 
-    } else if (el.value == "navegacion") {
+    }
+    else if (el.value == "navegacion")
+    {
+        coso = 'navegacion';
+        //window.alert(el.value);
         //la remuevo...
         map.removeInteraction(selectInteraction);
         //remueveo la subscripcion de la funcion al evento click del mapa
         map.un('click', clickEnMapa);
     }
+    else if (el.value == "distancia")
+    {
+        coso = 'distancia';
+        //window.alert(el.value);
+        map.addInteraction(selectInteraction);
+        //subscribo una funcion al evento click del mapa
+        map.on('click', clickEnMapa);
+    }
     //muestro por consola el valor
-    console.log(el.value);
+    //console.log(el.value);
 };
 
             //visibilidad de las capas
@@ -1499,8 +1556,8 @@ var raster = new ol.layer.Tile({
             //var featurejson = format.writeFeature(currentFeature);
             var geometryjson = format.writeGeometry(currentFeature.getGeometry());
             var featurejson = format.writeFeature(currentFeature);
-            window.alert(featurejson);
-            window.alert(geometryjson);
+            //window.alert(featurejson);
+            //window.alert(geometryjson);
             //geometryjson = format.writeFeature(geometryjson);
             //var featuresjson = format.writeFeatures(allFeatures);
             console.log('Objeto: '+geometryjson);

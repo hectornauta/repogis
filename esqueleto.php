@@ -8,6 +8,38 @@
     <title>Kuyis</title>
 
 		<style>
+				.tooltip {
+					position: relative;
+					background: rgba(0, 0, 0, 0.5);
+					border-radius: 4px;
+					color: white;
+					padding: 4px 8px;
+					opacity: 0.7;
+					white-space: nowrap;
+				}
+				.tooltip-measure {
+					opacity: 1;
+					font-weight: bold;
+				}
+				.tooltip-static {
+					background-color: #ffcc33;
+					color: black;
+					border: 1px solid white;
+				}
+				.tooltip-measure:before,
+				.tooltip-static:before {
+					border-top: 6px solid rgba(0, 0, 0, 0.5);
+					border-right: 6px solid transparent;
+					border-left: 6px solid transparent;
+					content: "";
+					position: absolute;
+					bottom: -6px;
+					margin-left: -7px;
+					left: 50%;
+				}
+				.tooltip-static:before {
+					border-top-color: #ffcc33;
+				} 
 				#map {
 						height: 600px;
 						width: 78.5%;
@@ -41,9 +73,14 @@
 						height:100%;
 						width:50%;
 				}
-				button.legbutton{
-						background-color: #6690B9;
-						color: #EEE;
+				button.legbutton
+				{
+					background-color: #6690B9;
+					color: #EEE;
+					border-radius: 6px;
+					font-size: 15px;
+					font-weight: bold;
+					border: 1px solid #3866a3;
 				}
 		</style>    
 	<link href="css/style.css" rel="stylesheet">
@@ -67,7 +104,7 @@
 		<div class="col-md-12">
 			<div class="page-header">
 			<div class="jumbotron">
-							<h1>Mapa Temático</h1>      
+							<h1><b>🗺 Kuyis - Mapa Temático</b></h1>      
 							<p>Información geográfica sobre Argentina</p>
 			</div>
 			</div>
@@ -86,7 +123,7 @@
 			</div>
 			
 			<div id="imagen">
-			<a id="export-png" class="btn btn-success"><i class="fa fa-download"></i> Descargar PNG</a>
+			<a hidden id="export-png" class="btn btn-success"><i class="fa fa-download"></i> Descargar PNG</a>
 			</div>
 		</div>
 		
@@ -94,7 +131,7 @@
 	
     
 	<div id="panel">
-			<button id="seleccionar-todo" type="checkbox" >Marcar/Desmarcar todas las capas</button>			
+			<button hidden id="seleccionar-todo" type="checkbox" >Marcar/Desmarcar todas las capas</button>			
 			<div class="col-md-12 offset-md-3">
 					<div class="card">									
 
@@ -442,6 +479,22 @@
 		onchange="seleccionarControl(this)"
 		>
 		<label for="controles_consulta"> Consulta</label><br/>
+		<input
+		type="radio"
+		name="controles"
+		id="controles_distancia"
+		value="distancia"
+		onchange="seleccionarControl(this)"
+		>
+		<label for="controles_distancia"> Distancia</label><br/>
+		<input
+		type="radio"
+		name="controles"
+		id="controles_navegacion"
+		value="navegacion"
+		onchange="seleccionarControl(this)"
+		>
+		<label for="controles_navegacion"> Navegación</label><br/>
 		
 	</div>
 	<div id="legend"><img id='leg' src=''/></div>
